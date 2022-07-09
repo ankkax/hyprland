@@ -5,8 +5,8 @@
 
 
 "wlr/workspaces": {
-    "on-scroll-up": "exec $HOME/scripts/scrollup.sh",
-    "on-scroll-down": "exec $HOME/scripts/scrolldown.sh",
+    "on-scroll-up": "exec $HOME/.config/waybar/utilities/scrollup.sh",
+    "on-scroll-down": "exec $HOME/.config/wabar/utilities/scrolldown.sh",
                 "on-click": "activate",
                 "disable-scroll": false,
                 "all-outputs": true,
