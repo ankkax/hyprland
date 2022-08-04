@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# volume control script requires volnotification script if you want notifications for you volume change and pamixer for volume control
+
+pamixer -i 5
+~/.local/bin/volnotify
+$(volnotify)

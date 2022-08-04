@@ -1,0 +1,2 @@
+#!/bin/sh
+df |awk '$6=="/home" {print $5}' |tr -d \%

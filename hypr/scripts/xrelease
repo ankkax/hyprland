@@ -1,0 +1,15 @@
+#!/bin/sh
+
+fix() {
+    local options="$(setxkbmap -query | grep 'options:' | rev | cut -d ' ' -f 1 | rev)"
+
+    # Simulate the ungrab.
+    setxkbmap -option grab:break_actions
+    xdotool key XF86Ungrab
+
+    # Restore previous options, because leaving grab:break_actions enabled
+    # could otherwise introduce a security risk, possibly allowing screensavers
+    # to be bypassed, as mentioned here: https://unix.stackexchange.com/a/40472
+    setxkbmap -option # Reset options.
+    setxkbmap -option "$options"
+}

@@ -1,0 +1,8 @@
+#!/bin/sh
+sleep 2
+spotify &
+sleep 1
+hyprctl dispatch focuswindow title:Spotify
+hyprctl dispatch togglefloating 1
+hyprctl dispatch movetoworkspacesilent 4
+

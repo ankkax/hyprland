@@ -1,0 +1,28 @@
+#!/bin/sh
+	ethd=$(nmcli d | awk '$2=="ethernet" {print $1}')
+	signal=$(nmcli dev wifi | grep \* | awk '{ print $8 }')
+	wifid=$(nmcli d | awk '$2=="wifi" {print $1}')
+	ethstatus=$(nmcli d | awk '$2=="ethernet" {print $3}')
+	wifistatus=$(nmcli d | awk '$2=="wifi" {print $3}')
+	icons=("󰤯" "󰤟" "󰤢" "󰤥" "󰤨")
+	level=$(awk -v n=$signal 'BEGIN{print int(n/20)}')
+	while true
+	do
+		sleep 1
+
+	if [[ $wifistatus == "connected" ]] ; then
+		if [[ $level -gt 4 ]]; then
+			level=4
+			fi
+			icon=''${icons[$level]}
+			elif [[ $ethstatus == "connected" ]] ; then
+		icon="󰖟"
+	fi
+
+
+if [[ "$1" == "color" ]]; then
+	echo $color
+    elif [[ "$1" == "icon" ]]; then
+        echo $icon
+    fi
+done

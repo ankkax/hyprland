@@ -1,0 +1,31 @@
+#!/bin/sh
+	ethd=$(nmcli d | awk '$2=="ethernet" {print $1}')
+	signal=$(nmcli dev wifi | grep \* | awk '{ print $8 }')
+	wifid=$(nmcli d | awk '$2=="wifi" {print $1}')
+	ethstatus=$(nmcli d | awk '$2=="ethernet" {print $3}')
+	wifistatus=$(nmcli d | awk '$2=="wifi" {print $3}')
+	icons=("󰤯" "󰤟" "󰤢" "󰤥" "󰤨")
+	level=$(awk -v n=$signal 'BEGIN{print int(n/20)}')
+	vpn=$(pgrep -a openvpn$ | head -n 1 | awk '{print $NF }' | cut -d '.' -f 1)
+if [ -n "$vpn" ]; then
+	icon="󱢾"
+
+	elif [[ $ethstatus == "connected" ]] ; then
+	icon="󰖟"
+	
+
+elif [[ $wifistatus == "connected" ]] ; then
+		if [[ $level -gt 4 ]]; then
+			level=4
+			fi
+			icon=''${icons[$level]}
+		else
+		icon="󱞐"
+	fi
+
+
+if [[ "$1" == "color" ]]; then
+	echo $color
+    elif [[ "$1" == "icon" ]]; then
+        echo $icon
+    fi

@@ -1,0 +1,14 @@
+#!/bin/bash
+#autorandr desktop
+
+#sleep 1
+
+sink=$(pamixer --list-sinks | grep FiiO | cut -c1,2)
+pactl set-default-sink "$sink"
+
+
+notify-send "Audio FiiO  " -t 2000 
+
+# sleep 3
+
+# i3-msg restart

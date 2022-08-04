@@ -1,0 +1,4 @@
+#!/bin/sh 
+while true ; do $HOME/.local/bin/game.sh & sleep 5; done
+
+

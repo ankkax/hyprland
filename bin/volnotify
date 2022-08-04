@@ -1,0 +1,21 @@
+#!/bin/bash
+# Script to show volumenotification and play sound
+# need depencies pamixer, volnoti and canberra-gtk-play for sound
+# add this script to you volume control bind
+# https://github.com/davidbrazdil/volnoti
+
+volume="$(pamixer --get-volume)"
+ 
+
+# check volume
+if [ "$volume" = "0" ]; then
+	volnoti-show -m
+else
+	volnoti-show $volume
+
+fi
+
+# play sound
+canberra-gtk-play -i audio-volume-change
+
+

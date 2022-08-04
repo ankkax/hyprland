@@ -1,0 +1,15 @@
+#!/bin/sh
+#autorandr desktop
+
+#sleep 1
+
+sink=$(pamixer --list-sinks | grep Creative | cut -c1,2)
+
+pactl set-default-sink "$sink"
+
+
+notify-send "Audio Creative  " -t 2000 
+
+# sleep 3
+
+# i3-msg restart
