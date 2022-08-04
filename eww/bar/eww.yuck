@@ -1,5 +1,5 @@
 ;; Variables
-(defpoll clock_time :interval "5m" "date +\%I")
+(defpoll clock_time :interval "30s" "date +\%H")
 (defpoll clock_minute :interval "5s" "date +\%M")
 (defpoll clock_date :interval "10h" "date '+%d/%m'")
 (defpoll volume_percent :interval "3s" "amixer -D pulse sget Master | grep 'Front Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
@@ -8,7 +8,7 @@
 (defpoll battery :interval "15s" "./scripts/battery --bat")
 (defpoll battery_status :interval "1m" "./scripts/battery --bat-st")
 (defpoll memory :interval "15s" "$HOME/.config/eww/bar/scripts/memory")
-(defpoll cpu :interval "1s" "$HOME/.config/eww/bar/scripts/cpu")
+(defpoll home :interval "1s" "$HOME/.config/eww/bar/scripts/home")
 (deflisten cava "$HOME/.config/eww/bar/scripts/cava-internal.sh")
 (defpoll memory_used_mb :interval "2m" "scripts/mem-ad used")
 (defpoll memory_total_mb :interval "2m" "scripts/mem-ad total")
@@ -16,16 +16,14 @@
 (defvar vol_reveal false)
 (defvar br_reveal false)
 (defvar music_reveal false)
-(defvar wifi_rev false)
+(defvar net_rev false)
 (defvar time_rev false)
 (deflisten workspace "$HOME/.config/eww/bar/scripts/workspace")
+(defpoll net_color :interval "10s" "$HOME/.config/eww/bar/scripts/net color")                                                                                           
+(defpoll net_icon :interval "10s" "$HOME/.config/eww/bar/scripts/net icon")                                                                                             
+(defpoll net_ssid :interval "10s" "$HOME/.config/eww/bar/scripts/net essid") 
 
 (defvar eww "$HOME/.eww/eww -c $HOME/.config/eww")
-
-
-(defpoll COL_WLAN :interval "1m" "~/.config/eww/bar/scripts/wifi --COL")
-(defpoll ESSID_WLAN :interval "1m" "~/.config/eww/bar/scripts/wifi --ESSID")
-(defpoll WLAN_ICON :interval "1m" "~/.config/eww/bar/scripts/wifi --ICON")
 
 
 (defpoll song :interval "2s"  "~/.config/eww/bar/scripts/music_info title")
@@ -39,18 +37,26 @@
 
 ;; widgets
 
-(defwidget wifi [] 
-  (eventbox :onhover "${eww} update wifi_rev=true"
-			  :onhoverlost "${eww} update wifi_rev=false"
-		(box :vexpand "false" :hexpand "false" :space-evenly "false"
-				(button :class "module-wif" :onclick "networkmanager_dmenu" :wrap "false" :limit-width 12 :style "color: ${COL_WLAN};" WLAN_ICON)
-	(revealer :transition "slideright"
-			  :reveal wifi_rev
-			  :duration "350ms"
-	(label    :class "module_essid"
-			  :text ESSID_WLAN
-			  :orientation "h"
-			  )))))
+(defwidget net []
+	(eventbox
+		:onhover "${EWW_CMD} update net_rev=true"
+		:onhoverlost "${EWW_CMD} update net_rev=false"
+		(box
+		:space-evenly "false"
+			(revealer
+				:transition "slideright"
+        			:reveal net_rev
+        			:duration "350ms"
+        (label
+          :class "module_ssid module"
+          :style "color: ${net_color};"
+          :text net_ssid))
+      (button
+        :class "module_net module"
+        :onclick "$HOME/.config/eww/bar/scripts/popup wifi"
+	:wrap "false"
+        :style "color: ${net_color};"
+        net_icon))))
 
 (defwidget cava []
  (label :vexpand "false" :hexpand "false" :space-evenly "false"
@@ -63,20 +69,34 @@
   (literal :content workspace))
 
 
-(defwidget bat []
-		(box :class "bat_module" :vexpand "false" :hexpand "false" 
-            (circular-progress :value battery
-                :class "batbar"
+(defwidget home []
+		(box :class "home_module" :vexpand "false" :hexpand "false" 
+            (circular-progress :value "${home}"
+                :class "homebar"
                 :thickness 4
             (button 
-                :class "iconbat"
+                :class "iconhome"
                 :limit-width 2
-                :tooltip "battery on ${battery}%"
+                :tooltip "used on ${home}% home"
                 :show_truncated false
                 :onclick "eww open-many --toggle background-closer system-menu"
                 :wrap false
                 ""))))
 
+
+(defwidget bat []
+		(box :class "bat_module" :vexpand "false" :hexpand "false" 
+            (circular-progress :value home
+                :class "batbar"
+                :thickness 4
+            (button 
+                :class "iconbat"
+                :limit-width 2
+                :tooltip "battery on ${home}%"
+                :show_truncated false
+                :onclick "eww open-many --toggle background-closer system-menu"
+                :wrap false
+                ""))))
 
 (defwidget mem []
 		(box :class "mem_module" :vexpand "false" :hexpand "false" 
@@ -181,11 +201,12 @@
 		 :class "left_modules"
 ;;(bright)
 (volume)
-(wifi)
+(net)
 (sep)
 ;;(bat)
 (cpu)
 (mem)
+(home)
 (sep)
 (clock_module)))
 
@@ -226,6 +247,7 @@
           :monitor 0
 	  :exclusive true
 	  :windowtype "dock"
+	  :wm-ignore false
   (bar_1))
   
 (defwidget cal []

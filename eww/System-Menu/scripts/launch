@@ -2,30 +2,30 @@
 
 if [[ $1 == "picker" ]]; then
     cd $HOME
-    eww close-all
+    eww close system-menu
     $HOME/.scripts/color-picker
 elif [[ $1 == "settings" ]]; then
     cd $HOME
-    eww close-all
+    eww close system-menu
     xfce4-settings-manager
 elif [[ $1 == "volume" ]]; then
     cd $HOME
-    eww close-all
+    eww close system-menu
     pavucontrol
 elif [[ $1 == "display" ]]; then
     cd $HOME
-    eww close-all
+    eww close system-menu
     xfce4-display-settings
 elif [[ $1 == "power" ]]; then
     cd $HOME
-    eww close-all
+    eww close system-menu
     xfce4-power-manager --restart
 elif [[ $1 == "exit" ]]; then
     cd $HOME
-    eww close-all
+    eww close system-menu
     eww open-many --toggle background-closer powermenu 
 elif [[ $1 == "wifi" ]]; then
     cd $HOME
-    eww close-all
+    eww close system-menu
     networkmanager_dmenu 
 fi 

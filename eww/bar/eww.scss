@@ -1,6 +1,7 @@
 /** EWW.SCSS
 Created by saimoom **/
 $rosewater:   #F5E0DC;
+$spotify:	#1DB954;
 $flamingo:    #F2CDCD;
 $mauve:       #DDB6F2;
 $pink:        #F5C2E7;
@@ -85,11 +86,21 @@ tooltip label {
     margin: 0px 5px 0px 0px;
 }
 
+.homebar {
+color: $peach;
+background-color: $bg1;
+border-radius: 10px;
+}
+
+.batbar {
+  color: #afbea2;
+    background-color: #38384d;
+  border-radius: 10px;
+}
 .cpubar { color: $blue; 
 background-color: $bg1;
 border-radius: 10px;
 }
-.iconcpu { color: $blue; }
 
 .membar {
   color: $green;
@@ -99,13 +110,8 @@ border-radius: 10px;
 
 
 .cavabar {
-  color: $green;
+  color: #45ADA8;
     font-family: "Hack Nerd Font";
-}
-.batbar {
-  color: #afbea2;
-    background-color: #38384d;
-  border-radius: 10px;
 }
 .brightbar trough highlight {
   background-image: linear-gradient(to right, #e4c9af 30%, #f2cdcd 50%, #e0b089 100% *50);
@@ -116,9 +122,9 @@ border-radius: 10px;
   border-radius: 10px;
 }
 .volume_icon {
-    font-size: 30;
+    font-size: 35;
     color: $teal;
-  margin: 0px 10px 0px 10px;
+  margin: 0px 5px 0px 10px;
 }
 
 
@@ -134,13 +140,23 @@ border-radius: 10px;
   margin: 0px 10px 0px 5px;
 }
 
+.module_ssid, .module_net {
+  font-size: 1.7rem;  
+  color: $lavender;
+}
+
+
+.iconcpu {
+	color: $blue;
+}
+
 .iconmem {
     color: $green;
 }
 .iconbat {
     color: #afbea2;
 }
-.iconbat, .iconmem, .iconcpu {
+.iconbat, .iconmem, .iconcpu, .iconhome {
     font-size: 15;
     margin: 10px;
 }
@@ -158,6 +174,11 @@ border-radius: 10px;
     margin: 0px 8px 0px 8px;
   }
 
+.home_module {
+background-color: #0f0f17;
+border-radius: 16px;
+margin: 0px 10px 0px 10px;
+}
 
 .cpu_module {
     background-color: #0f0f17;
@@ -167,7 +188,7 @@ border-radius: 10px;
 .mem_module {
     background-color: #0f0f17;
 	border-radius: 16px;
-  margin: 0px 10px 0px 3px;
+  margin: 0px 10px 0px 10px;
   }
 .bat_module {
     background-color: #0f0f17;
@@ -200,17 +221,17 @@ background-color: #0f0f17;
 
 /* Unoccupied */
 .0 {
-color: $gray1;
+color: #594F4F;
 }
 
 /* Occupied */
 .01, .02, .03, .04, .05, .06, .07, .08, .09 {
-  color: $blue;
+  color: #547980;
 }
 
 /* Focused */
 .011, .022, .033, .044, .055, .066, .077, .088, .099 {
-  color: $yellow;
+  color: $peach;
 }
 
 
@@ -224,7 +245,7 @@ color: $gray1;
 }
 
 .song {
-	color: $sky;
+	color: $lavender;
 	font-size : 18px;
 	font-weight : bold;
 	margin : 3px 5px 0px 0px;
